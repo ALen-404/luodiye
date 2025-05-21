@@ -100,7 +100,7 @@ const HomePage = () => {
   const calculateEarnings = () => {
     const rate = parseFloat(hashRate.toString()) || 0;
     const price = parseFloat(btcPrice.toString()) || 766500;
-    const dailyBtc = 0.00000050 * rate;
+    const dailyBtc = 0.00055 * rate;
     const weeklyBtc = dailyBtc * 7;
     const monthlyBtc = dailyBtc * 30;
     const yearlyBtc = dailyBtc * 365;
