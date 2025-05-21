@@ -67,7 +67,7 @@ const HomePage = () => {
   const [weeklyRmb, setWeeklyRmb] = useState(0);
   const [monthlyRmb, setMonthlyRmb] = useState(0);
   const [yearlyRmb, setYearlyRmb] = useState(0);
-  const [btcPrice, setBtcPrice] = useState(105000);
+  const [btcPrice, setBtcPrice] = useState(766500);
 
   const carouselSettings = {
     dots: true,
@@ -99,15 +99,15 @@ const HomePage = () => {
   // 计算收益
   const calculateEarnings = () => {
     const rate = parseFloat(hashRate.toString()) || 0;
-    const price = parseFloat(btcPrice.toString()) || 105000;
+    const price = parseFloat(btcPrice.toString()) || 766500;
     const dailyBtc = 0.00000050 * rate;
     const weeklyBtc = dailyBtc * 7;
     const monthlyBtc = dailyBtc * 30;
     const yearlyBtc = dailyBtc * 365;
-    const dailyRmbValue = dailyBtc * price * 7.3;
-    const weeklyRmbValue = weeklyBtc * price * 7.3;
-    const monthlyRmbValue = monthlyBtc * price * 7.3;
-    const yearlyRmbValue = yearlyBtc * price * 7.3;
+    const dailyRmbValue = dailyBtc * price;
+    const weeklyRmbValue = weeklyBtc * price;
+    const monthlyRmbValue = monthlyBtc * price;
+    const yearlyRmbValue = yearlyBtc * price;
 
     setDailyEarnings(dailyBtc);
     setWeeklyEarnings(weeklyBtc);
@@ -266,7 +266,7 @@ const HomePage = () => {
                   className="bg-white/20 text-white rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-yellow-300"
                   min="0"
                 />
-                <span className="text-lg">$</span>
+                <span className="text-lg">￥</span>
               </div>
               <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
                 <span className="text-lg font-semibold">算力</span>
