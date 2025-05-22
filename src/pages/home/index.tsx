@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 type TabKey = 'about' | 'commission' | 'macau' | 'navigation';
 
-// 模块接口
 interface Module {
   id: number;
   title: string;
@@ -16,7 +15,6 @@ interface Module {
   externalLink?: string;
 }
 
-// Tab 模块数据
 const tabModules: Record<TabKey, Module[]> = {
   about: [
     { id: 1, title: "盈利模块 1", icon: "/images/Profitability/module1/icon.jpg", images: ["/images/Profitability/module1/1.jpg"] },
@@ -46,11 +44,22 @@ const tabModules: Record<TabKey, Module[]> = {
   ],
 };
 
-// 轮播图本地图片
 const carouselImages = [
-  "/images/swiper1.jpg",
-  "/images/swiper2.jpg",
-  "/images/swiper3.jpg",
+  {
+    id: 1,
+    image: "/images/swiper1.jpg",
+    colImage:'/images/swiper1-col.jpg'
+  },
+    {
+    id: 1,
+    image: "/images/swiper2.jpg",
+    colImage:'/images/swiper2-col.jpg'
+  },
+    {
+    id: 1,
+    image: "/images/swiper3.jpg",
+    colImage:'/images/swiper3-col.jpg'
+  },
 ];
 
 const HomePage = () => {
@@ -58,6 +67,8 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+  const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // 新增轮播图弹窗状态
+  const [selectedImage, setSelectedImage] = useState<string | null>(null); // 新增选中图片状态
   const [hashRate, setHashRate] = useState(1);
   const [dailyEarnings, setDailyEarnings] = useState(0);
   const [weeklyEarnings, setWeeklyEarnings] = useState(0);
@@ -80,7 +91,6 @@ const HomePage = () => {
     arrows: false,
   };
 
-  // 处理模块点击
   const handleModuleClick = (module: Module) => {
     if (activeTab === 'navigation' && module.externalLink) {
       window.location.href = module.externalLink;
@@ -90,13 +100,23 @@ const HomePage = () => {
     }
   };
 
-  // 关闭弹窗
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedModule(null);
   };
 
-  // 计算收益
+  // 新增轮播图点击处理函数
+  const handleCarouselImageClick = (image: string) => {
+    setSelectedImage(image);
+    setIsCarouselModalOpen(true);
+  };
+
+  // 新增关闭轮播图弹窗函数
+  const closeCarouselModal = () => {
+    setIsCarouselModalOpen(false);
+    setSelectedImage(null);
+  };
+
   const calculateEarnings = () => {
     const rate = parseFloat(hashRate.toString()) || 0;
     const price = parseFloat(btcPrice.toString()) || 766500;
@@ -157,12 +177,12 @@ const HomePage = () => {
 
         {/* 轮播图 */}
         <Slider {...carouselSettings} className="rounded-xl overflow-hidden shadow-xl">
-          {carouselImages.map((src, index) => (
-            <div key={index}>
+          {carouselImages.map((item, index) => (
+            <div key={index} onClick={() => handleCarouselImageClick(item.colImage)}>
               <img
-                src={src}
+                src={item.image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto object-contain cursor-pointer"
               />
             </div>
           ))}
@@ -209,7 +229,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* 弹窗 */}
+      {/* 模块弹窗 */}
       {isModalOpen && selectedModule && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
@@ -227,6 +247,25 @@ const HomePage = () => {
                   className="w-full rounded-lg shadow-md"
                 />
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 轮播图弹窗 */}
+      {isCarouselModalOpen && selectedImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
+            <FaTimes
+              onClick={closeCarouselModal}
+              className="absolute top-4 right-4 text-white text-xl cursor-pointer hover:text-gray-300 transition"
+            />
+            <div className="flex justify-center">
+              <img
+                src={selectedImage}
+                alt="Selected Carousel Image"
+                className="w-full max-h-[70vh] object-contain rounded-lg shadow-md"
+              />
             </div>
           </div>
         </div>
@@ -254,7 +293,7 @@ const HomePage = () => {
               <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
                 <span className="text-lg font-semibold">币种</span>
                 <div className="bg-white/20 text-white rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-yellow-300">
-                 BTC (FPPS)
+                  BTC (FPPS)
                 </div>
               </div>
               <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
@@ -286,30 +325,30 @@ const HomePage = () => {
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
                     <span>{dailyEarnings.toFixed(10)} BTC</span>
-                    <span >1 天</span>
+                    <span>1 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center  p-2 text-center">
+                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {dailyRmb.toFixed(2)}</span>
                   </div>
                   <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
                     <span>{weeklyEarnings.toFixed(10)} BTC</span>
-                    <span >7 天</span>
+                    <span>7 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center  p-2 text-center">
+                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {weeklyRmb.toFixed(2)}</span>
                   </div>
                   <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
                     <span>{monthlyEarnings.toFixed(10)} BTC</span>
-                    <span >30 天</span>
+                    <span>30 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg  flex justify-center items-center p-2 text-center">
+                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {monthlyRmb.toFixed(2)}</span>
                   </div>
                   <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
                     <span>{yearlyEarnings.toFixed(10)} BTC</span>
-                    <span >365 天</span>
+                    <span>365 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center  p-2 text-center">
+                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {yearlyRmb.toFixed(2)}</span>
                   </div>
                 </div>
