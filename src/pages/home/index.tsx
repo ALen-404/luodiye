@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Slider from "react-slick";
 import { FaCommentDots, FaTimes, FaCalculator } from "react-icons/fa";
+import {
+  FcConferenceCall, FcMoneyTransfer, FcBarChart, FcLineChart, FcBullish,
+  FcBusiness, FcCollaboration, FcSettings, FcBriefcase,
+  FcCurrencyExchange, FcPuzzle, FcDataProtection, FcFactory,
+  FcGlobe, FcLock, FcSafe, FcLink,
+  FcDoNotMix
+} from 'react-icons/fc';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -10,37 +17,37 @@ type TabKey = 'about' | 'commission' | 'macau' | 'navigation';
 interface Module {
   id: number;
   title: string;
-  icon: string;
+  icon: React.ReactNode; // 修改为 React.ReactNode 以支持 JSX 图标
   images?: string[];
   externalLink?: string;
 }
 
 const tabModules: Record<TabKey, Module[]> = {
   about: [
-    { id: 1, title: "盈利模块 1", icon: "/images/Profitability/module1/icon.jpg", images: ["/images/Profitability/module1/1.jpg"] },
-    { id: 2, title: "盈利模块 2", icon: "/images/Profitability/module2/icon.jpg", images: ["/images/Profitability/module2/1.jpg", "/images/Profitability/module2/2.jpg"] },
-    { id: 3, title: "盈利模块 3", icon: "/images/Profitability/module3/icon.jpg", images: ["/images/Profitability/module3/1.jpg", "/images/Profitability/module3/2.jpg"] },
-    { id: 4, title: "盈利模块 4", icon: "/images/Profitability/module4/icon.jpg", images: ["/images/Profitability/module4/1.jpg"] },
-    { id: 5, title: "盈利模块 5", icon: "/images/Profitability/module5/icon.jpg", images: ["/images/Profitability/module5/1.jpg", "/images/Profitability/module5/2.jpg"] },
+    { id: 1, title: "合作模式", icon: <FcConferenceCall className='w-10 h-10' />, images: ["/images/Profitability/module1/1.jpg"] },
+    { id: 2, title: "收益模式", icon: <FcMoneyTransfer className='w-10 h-10' />, images: ["/images/Profitability/module2/1.jpg", "/images/Profitability/module2/2.jpg"] },
+    { id: 3, title: "收益结构", icon: <FcBarChart className='w-10 h-10' />, images: ["/images/Profitability/module3/1.jpg", "/images/Profitability/module3/2.jpg"] },
+    { id: 4, title: "收益监控", icon: <FcLineChart className='w-10 h-10' />, images: ["/images/Profitability/module4/1.jpg"] },
+    { id: 5, title: "对标碾压表", icon: <FcBullish className='w-10 h-10' />, images: ["/images/Profitability/module5/1.jpg", "/images/Profitability/module5/2.jpg"] },
   ],
   commission: [
-    { id: 1, title: "企业模块 1", icon: "/images/enterprise/module1/icon.jpg", images: ["/images/enterprise/module1/1.jpg"] },
-    { id: 2, title: "企业模块 2", icon: "/images/enterprise/module2/icon.jpg", images: ["/images/enterprise/module2/1.jpg"] },
-    { id: 3, title: "企业模块 3", icon: "/images/enterprise/module3/icon.jpg", images: ["/images/enterprise/module3/1.jpg"] },
-    { id: 4, title: "企业模块 4", icon: "/images/enterprise/module4/icon.jpg", images: ["/images/enterprise/module4/1.jpg"] },
+    { id: 1, title: "企业情况介绍", icon: <FcBusiness className='w-10 h-10' />, images: ["/images/enterprise/module1/1.jpg"] },
+    { id: 2, title: "分布式办公", icon: <FcCollaboration className='w-10 h-10' />, images: ["/images/enterprise/module2/1.jpg"] },
+    { id: 3, title: "定制化系统方案", icon: <FcSettings className='w-10 h-10' />, images: ["/images/enterprise/module3/1.jpg"] },
+    { id: 4, title: "运营情况", icon: <FcBriefcase className='w-10 h-10' />, images: ["/images/enterprise/module4/1.jpg"] },
   ],
   macau: [
-    { id: 1, title: "BTC模块 1", icon: "/images/btc/module1/icon.jpg", images: ["/images/btc/module1/1.jpg", "/images/btc/module1/2.png"] },
-    { id: 2, title: "BTC模块 2", icon: "/images/btc/module2/icon.jpg", images: ["/images/btc/module2/1.png", "/images/btc/module2/2.jpg", "/images/btc/module2/3.jpg"] },
-    { id: 3, title: "BTC模块 3", icon: "/images/btc/module3/icon.jpg", images: ["/images/btc/module3/1.jpg"] },
-    { id: 4, title: "BTC模块 4", icon: "/images/btc/module4/icon.jpg", images: ["/images/btc/module4/1.jpg", "/images/btc/module4/2.jpg"] },
-    { id: 5, title: "BTC模块 5", icon: "/images/btc/module5/icon.jpg", images: ["/images/btc/module5/1.jpg"] },
+    { id: 1, title: "BTC核心概念", icon: <FcCurrencyExchange className='w-10 h-10' />, images: ["/images/btc/module1/1.jpg", "/images/btc/module1/2.png"] },
+    { id: 2, title: "区块链", icon: <FcPuzzle className='w-10 h-10' />, images: ["/images/btc/module2/1.png", "/images/btc/module2/2.jpg", "/images/btc/module2/3.jpg"] },
+    { id: 3, title: "BTC挖矿", icon: <FcDataProtection className='w-10 h-10' />, images: ["/images/btc/module3/1.jpg"] },
+    { id: 4, title: "交易概念", icon: <FcDoNotMix className='w-10 h-10' />, images: ["/images/btc/module4/1.jpg", "/images/btc/module4/2.jpg"] },
+    { id: 5, title: "矿池工作", icon: <FcFactory className='w-10 h-10' />, images: ["/images/btc/module5/1.jpg"] },
   ],
   navigation: [
-    { id: 1, title: "蚂蚁矿池", icon: "/images/partner/ant.png", externalLink: "https://www.antpool.com/" },
-    { id: 2, title: "VPN", icon: "/images/partner/vpn-icon.jpg", externalLink: "https://letsvpn.world/" },
-    { id: 3, title: "欧意", icon: "/images/partner/okx-icon.jpg", externalLink: "https://www.okx.com/" },
-    { id: 4, title: "币安", icon: "/images/partner/binance-icon.jpg", externalLink: "https://www.binance.com/" },
+    { id: 1, title: "蚂蚁矿池", icon: <FcGlobe className='w-10 h-10' />, externalLink: "https://www.antpool.com/" },
+    { id: 2, title: "VPN", icon: <FcLock className='w-10 h-10' />, externalLink: "https://letsvpn.world/" },
+    { id: 3, title: "欧意", icon: <FcSafe className='w-10 h-10' />, externalLink: "https://www.okx.com/" },
+    { id: 4, title: "币安", icon: <FcLink className='w-10 h-10' />, externalLink: "https://www.binance.com/" },
   ],
 };
 
@@ -48,17 +55,17 @@ const carouselImages = [
   {
     id: 1,
     image: "/images/swiper1.jpg",
-    colImage:'/images/swiper1-col.jpg'
+    colImage: "/images/swiper1-col.jpg"
   },
-    {
-    id: 1,
+  {
+    id: 2,
     image: "/images/swiper2.jpg",
-    colImage:'/images/swiper2-col.jpg'
+    colImage: "/images/swiper2-col.jpg"
   },
-    {
-    id: 1,
+  {
+    id: 3,
     image: "/images/swiper3.jpg",
-    colImage:'/images/swiper3-col.jpg'
+    colImage: "/images/swiper3-col.jpg"
   },
 ];
 
@@ -67,8 +74,8 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
-  const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false); // 新增轮播图弹窗状态
-  const [selectedImage, setSelectedImage] = useState<string | null>(null); // 新增选中图片状态
+  const [isCarouselModalOpen, setIsCarouselModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [hashRate, setHashRate] = useState(1);
   const [dailyEarnings, setDailyEarnings] = useState(0);
   const [weeklyEarnings, setWeeklyEarnings] = useState(0);
@@ -105,13 +112,11 @@ const HomePage = () => {
     setSelectedModule(null);
   };
 
-  // 新增轮播图点击处理函数
   const handleCarouselImageClick = (image: string) => {
     setSelectedImage(image);
     setIsCarouselModalOpen(true);
   };
 
-  // 新增关闭轮播图弹窗函数
   const closeCarouselModal = () => {
     setIsCarouselModalOpen(false);
     setSelectedImage(null);
@@ -218,11 +223,10 @@ const HomePage = () => {
                 onClick={() => handleModuleClick(module)}
                 className="flex flex-col items-center gap-2 p-4 hover:bg-white/20 rounded-lg transition cursor-pointer"
               >
-                <img
-                  src={module.icon}
-                  alt={`${module.title} icon`}
-                  className="w-16 h-16 rounded-full shadow-md object-cover"
-                />
+                <div className="w-16 h-16 rounded-full shadow-md flex items-center justify-center bg-white/20">
+                  {module.icon}
+                </div>
+                <p>{module.title}</p>
               </div>
             ))}
           </div>
@@ -231,7 +235,7 @@ const HomePage = () => {
 
       {/* 模块弹窗 */}
       {isModalOpen && selectedModule && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div onClick={closeModal} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
             <FaTimes
               onClick={closeModal}
