@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Slider from "react-slick";
 import { FaCommentDots, FaTimes, FaCalculator } from "react-icons/fa";
-import {
-  FcConferenceCall, FcMoneyTransfer, FcBarChart, FcLineChart, FcBullish,
-  FcBusiness, FcCollaboration, FcSettings, FcBriefcase,
-  FcCurrencyExchange, FcPuzzle, FcDataProtection, FcFactory,
-  FcGlobe, FcLock, FcSafe, FcLink,
-  FcDoNotMix
-} from 'react-icons/fc';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -17,37 +10,38 @@ type TabKey = 'about' | 'commission' | 'macau' | 'navigation';
 interface Module {
   id: number;
   title: string;
-  icon: React.ReactNode; // 修改为 React.ReactNode 以支持 JSX 图标
+  icon: React.ReactNode;
   images?: string[];
   externalLink?: string;
 }
 
 const tabModules: Record<TabKey, Module[]> = {
   about: [
-    { id: 1, title: "合作模式", icon: <FcConferenceCall className='w-10 h-10' />, images: ["/images/Profitability/module1/1.jpg"] },
-    { id: 2, title: "收益模式", icon: <FcMoneyTransfer className='w-10 h-10' />, images: ["/images/Profitability/module2/1.jpg", "/images/Profitability/module2/2.jpg"] },
-    { id: 3, title: "收益结构", icon: <FcBarChart className='w-10 h-10' />, images: ["/images/Profitability/module3/1.jpg", "/images/Profitability/module3/2.jpg"] },
-    { id: 4, title: "收益监控", icon: <FcLineChart className='w-10 h-10' />, images: ["/images/Profitability/module4/1.jpg"] },
-    { id: 5, title: "对标碾压表", icon: <FcBullish className='w-10 h-10' />, images: ["/images/Profitability/module5/1.jpg", "/images/Profitability/module5/2.jpg"] },
+    { id: 1, title: "合作模式", icon: <img src="/images/Profitability_icon/1.png" alt="合作模式" className='w-10 h-10' />, images: ["/images/Profitability/module1/1.jpg"] },
+    { id: 2, title: "收益模式", icon: <img src="/images/Profitability_icon/2.png" alt="收益模式" className='w-10 h-10' />, images: ["/images/Profitability/module2/1.jpg", "/images/Profitability/module2/2.jpg"] },
+    { id: 3, title: "收益结构", icon: <img src="/images/Profitability_icon/3.png" alt="收益结构" className='w-10 h-10' />, images: ["/images/Profitability/module3/1.jpg", "/images/Profitability/module3/2.jpg"] },
+    { id: 4, title: "收益监控", icon: <img src="/images/Profitability_icon/4.png" alt="收益监控" className='w-10 h-10' />, images: ["/images/Profitability/module4/1.jpg"] },
+    { id: 5, title: "对标碾压表", icon: <img src="/images/Profitability_icon/5.png" alt="对标碾压表" className='w-10 h-10' />, images: ["/images/Profitability/module5/1.jpg", "/images/Profitability/module5/2.jpg"] },
   ],
   commission: [
-    { id: 1, title: "企业情况介绍", icon: <FcBusiness className='w-10 h-10' />, images: ["/images/enterprise/module1/1.jpg"] },
-    { id: 2, title: "分布式办公", icon: <FcCollaboration className='w-10 h-10' />, images: ["/images/enterprise/module2/1.jpg"] },
-    { id: 3, title: "定制化系统方案", icon: <FcSettings className='w-10 h-10' />, images: ["/images/enterprise/module3/1.jpg"] },
-    { id: 4, title: "运营情况", icon: <FcBriefcase className='w-10 h-10' />, images: ["/images/enterprise/module4/1.jpg"] },
+    { id: 1, title: "企业情况介绍", icon: <img src="/images/enterprise_icon/1.png" alt="企业情况介绍" className='w-10 h-10' />, images: ["/images/enterprise/module1/1.jpg"] },
+    { id: 2, title: "分布式办公", icon: <img src="/images/enterprise_icon/2.png" alt="分布式办公" className='w-10 h-10' />, images: ["/images/enterprise/module2/1.jpg"] },
+    { id: 3, title: "定制化系统方案", icon: <img src="/images/enterprise_icon/3.png" alt="定制化系统方案" className='w-10 h-10' />, images: ["/images/enterprise/module3/1.jpg"] },
+    { id: 4, title: "运营情况", icon: <img src="/images/enterprise_icon/4.png" alt="运营情况" className='w-10 h-10' />, images: ["/images/enterprise/module4/1.jpg"] },
   ],
   macau: [
-    { id: 1, title: "BTC核心概念", icon: <FcCurrencyExchange className='w-10 h-10' />, images: ["/images/btc/module1/1.jpg", "/images/btc/module1/2.png"] },
-    { id: 2, title: "区块链", icon: <FcPuzzle className='w-10 h-10' />, images: ["/images/btc/module2/1.png", "/images/btc/module2/2.jpg", "/images/btc/module2/3.jpg"] },
-    { id: 3, title: "BTC挖矿", icon: <FcDataProtection className='w-10 h-10' />, images: ["/images/btc/module3/1.jpg"] },
-    { id: 4, title: "交易概念", icon: <FcDoNotMix className='w-10 h-10' />, images: ["/images/btc/module4/1.jpg", "/images/btc/module4/2.jpg"] },
-    { id: 5, title: "矿池工作", icon: <FcFactory className='w-10 h-10' />, images: ["/images/btc/module5/1.jpg"] },
+    { id: 1, title: "BTC核心概念", icon: <img src="/images/btc_icon/1.png" alt="BTC核心概念" className='w-10 h-10' />, images: ["/images/btc/module1/1.jpg", "/images/btc/module1/2.jpg"] },
+    { id: 2, title: "区块链", icon: <img src="/images/btc_icon/2.png" alt="区块链" className='w-10 h-10' />, images: ["/images/btc/module2/1.jpg", "/images/btc/module2/2.jpg", "/images/btc/module2/3.jpg"] },
+    { id: 3, title: "BTC挖矿", icon: <img src="/images/btc_icon/3.png" alt="BTC挖矿" className='w-10 h-10' />, images: ["/images/btc/module3/1.jpg"] },
+    { id: 4, title: "交易概念", icon: <img src="/images/btc_icon/4.png" alt="交易概念" className='w-10 h-10' />, images: ["/images/btc/module4/1.jpg", "/images/btc/module4/2.jpg"] },
+    { id: 5, title: "矿池工作", icon: <img src="/images/btc_icon/5.png" alt="矿池工作" className='w-10 h-10' />, images: ["/images/btc/module5/1.jpg"] },
   ],
   navigation: [
-    { id: 1, title: "蚂蚁矿池", icon: <FcGlobe className='w-10 h-10' />, externalLink: "https://www.antpool.com/" },
-    { id: 2, title: "VPN", icon: <FcLock className='w-10 h-10' />, externalLink: "https://letsvpn.world/" },
-    { id: 3, title: "欧意", icon: <FcSafe className='w-10 h-10' />, externalLink: "https://www.okx.com/" },
-    { id: 4, title: "币安", icon: <FcLink className='w-10 h-10' />, externalLink: "https://www.binance.com/" },
+    { id: 1, title: "蚂蚁矿池", icon: <img src="/images/partner/ant.png" alt="蚂蚁矿池" className='object-contain w-10 h-10' />, externalLink: "https://www.antpool.com/" },
+    { id: 2, title: "VPN", icon: <img src="/images/partner/vpn.png" alt="VPN" className='object-contain w-10 h-10' />, externalLink: "https://letsvpn.world/" },
+    { id: 3, title: "欧意", icon: <img src="/images/partner/okx.png" alt="欧意" className='object-contain w-10 h-10' />, externalLink: "https://www.okx.com/" },
+    { id: 4, title: "币安", icon: <img src="/images/partner/bian.png" alt="币安" className='object-contain w-10 h-10' />, externalLink: "https://www.binance.com/" },
+    { id: 4, title: "visa", icon: <img src="/images/partner/usd.png" alt="visa" className='object-contain w-10 h-10' />, externalLink: "https://www.visa.com/" },
   ],
 };
 
@@ -152,7 +146,12 @@ const HomePage = () => {
     <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white min-h-screen relative pb-24">
       {/* 固定顶部横幅 */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-70 backdrop-blur-md z-50 flex justify-between items-center px-4 py-2 shadow-lg">
-        <div className="text-white text-sm">🚀 丝瓜官网聊天工具</div>
+        <div className="text-white text-sm flex items-center gap-1">
+           <img
+                src={"/images/logo.png"}
+                className="w-6 h-6"
+              />
+           丝瓜官网聊天工具</div>
         <a
           href="https://ya.cn/index.html"
           target="_blank"
