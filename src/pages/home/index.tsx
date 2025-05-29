@@ -41,7 +41,7 @@ const tabModules: Record<TabKey, Module[]> = {
     { id: 2, title: "VPN", icon: <img src="/images/partner/vpn.png" alt="VPN" className='object-contain w-10 h-10' />, externalLink: "https://letsvpn.world/" },
     { id: 3, title: "欧意", icon: <img src="/images/partner/okx.png" alt="欧意" className='object-contain w-10 h-10' />, externalLink: "https://www.okx.com/" },
     { id: 4, title: "币安", icon: <img src="/images/partner/bian.png" alt="币安" className='object-contain w-10 h-10' />, externalLink: "https://www.binance.com/" },
-    { id: 4, title: "visa", icon: <img src="/images/partner/usd.png" alt="visa" className='object-contain w-10 h-10' />, externalLink: "https://www.visa.com/" },
+    { id: 5, title: "visa", icon: <img src="/images/partner/usd.png" alt="visa" className='object-contain w-10 h-10' />, externalLink: "https://union.cash/en/" },
   ],
 };
 
@@ -143,20 +143,21 @@ const HomePage = () => {
   }, [hashRate, btcPrice]);
 
   return (
-    <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white min-h-screen relative pb-24">
+    <div className="bg-gradient-to-b from-white to-[rgb(184,220,255)] text-gray-800 min-h-screen relative pb-24">
       {/* 固定顶部横幅 */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-70 backdrop-blur-md z-50 flex justify-between items-center px-4 py-2 shadow-lg">
         <div className="text-white text-sm flex items-center gap-1">
-           <img
-                src={"/images/logo.png"}
-                className="w-6 h-6"
-              />
-           丝瓜官网聊天工具</div>
+          <img
+            src={"/images/logo.png"}
+            className="w-6 h-6"
+          />
+          丝瓜官网聊天工具
+        </div>
         <a
           href="https://ya.cn/index.html"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-gradient-to-r from-pink-500 to-yellow-400 text-black px-4 py-1 rounded-full font-bold hover:scale-105 transition"
+          className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-4 py-1 rounded-full font-bold hover:scale-105 transition"
         >
           立即下载
         </a>
@@ -164,15 +165,15 @@ const HomePage = () => {
 
       <div className="pt-16 px-4 space-y-6">
         {/* 联系方式 */}
-        <div className="flex items-center gap-3 bg-white bg-opacity-10 rounded-xl p-4 shadow-lg">
-          <FaCommentDots className="text-yellow-300 text-2xl" />
+        <div className="flex items-center gap-3 bg-white bg-opacity-30 rounded-xl p-4 shadow-lg">
+          <FaCommentDots className="text-blue-500 text-2xl" />
           <div>
             <p className="text-base font-semibold">丝瓜加经理 ID: yooy66</p>
             <a
               href="https://ya.cn/share/index.html?scheme_type=1&qrtype=qr/qiyunxin/person/07EGPet7sXkhkLEKBWeYPFQVghll_AsK&verification_code=ac3246cfcbf919330ef96df5fef70f97"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-gray-200"
+              className="text-sm text-gray-600"
             >
               点击图标联系客服
             </a>
@@ -204,8 +205,8 @@ const HomePage = () => {
               key={tab.key}
               onClick={() => setActiveTab(tab.key as TabKey)}
               className={`py-2 rounded-full font-semibold text-sm transition-all ${activeTab === tab.key
-                ? 'bg-white text-black shadow-lg'
-                : 'bg-white/20 text-white hover:bg-white/30'
+                ? 'bg-blue-500 text-white shadow-lg'
+                : 'bg-white/50 text-gray-800 hover:bg-white/70'
                 }`}
             >
               {tab.label}
@@ -214,15 +215,15 @@ const HomePage = () => {
         </div>
 
         {/* Tab 内容 - 模块列表 */}
-        <div className="bg-white/10 rounded-xl p-4 backdrop-blur-md shadow-inner min-h-[200px]">
+        <div className="bg-white/30 rounded-xl p-4 backdrop-blur-md shadow-inner min-h-[200px]">
           <div className="grid grid-cols-2 gap-4">
             {tabModules[activeTab].map(module => (
               <div
                 key={module.id}
                 onClick={() => handleModuleClick(module)}
-                className="flex flex-col items-center gap-2 p-4 hover:bg-white/20 rounded-lg transition cursor-pointer"
+                className="flex flex-col items-center gap-2 p-4 hover:bg-white/50 rounded-lg transition cursor-pointer"
               >
-                <div className="w-16 h-16 rounded-full shadow-md flex items-center justify-center bg-white/20">
+                <div className="w-16 h-16 rounded-full shadow-md flex items-center justify-center bg-white/50">
                   {module.icon}
                 </div>
                 <p>{module.title}</p>
@@ -235,10 +236,10 @@ const HomePage = () => {
       {/* 模块弹窗 */}
       {isModalOpen && selectedModule && (
         <div onClick={closeModal} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
+          <div className="bg-gradient-to-b from-white to-[rgb(184,220,255)] text-gray-800 rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
             <FaTimes
               onClick={closeModal}
-              className="absolute top-4 right-4 text-white text-xl cursor-pointer hover:text-gray-300 transition"
+              className="absolute top-4 right-4 text-gray-600 text-xl cursor-pointer hover:text-gray-800 transition"
             />
             <h2 className="text-2xl font-bold mb-4">{selectedModule.title}</h2>
             <div className="grid grid-cols-1 gap-4">
@@ -258,10 +259,10 @@ const HomePage = () => {
       {/* 轮播图弹窗 */}
       {isCarouselModalOpen && selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
+          <div className="bg-gradient-to-b from-white to-[rgb(184,220,255)] text-gray-800 rounded-xl p-6 max-w-md mx-auto max-h-[80vh] overflow-y-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
             <FaTimes
               onClick={closeCarouselModal}
-              className="absolute top-4 right-4 text-white text-xl cursor-pointer hover:text-gray-300 transition"
+              className="absolute top-4 right-4 text-gray-600 text-xl cursor-pointer hover:text-gray-800 transition"
             />
             <div className="flex justify-center">
               <img
@@ -277,81 +278,81 @@ const HomePage = () => {
       {/* 收益计算器按钮和弹窗 */}
       <button
         onClick={() => setIsCalcOpen(true)}
-        className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition z-50"
+        className="fixed bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition z-50"
       >
         <FaCalculator className="text-xl" />
       </button>
       {isCalcOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gradient-to-b from-purple-800 via-pink-600 to-red-500 text-white rounded-xl p-6 max-w-md mx-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
+          <div className="bg-gradient-to-b from-white to-[rgb(184,220,255)] text-gray-800 rounded-xl p-6 max-w-md mx-auto bg-opacity-80 backdrop-blur-md shadow-2xl relative w-11/12">
             <FaTimes
               onClick={() => setIsCalcOpen(false)}
-              className="absolute top-4 right-4 text-white text-xl cursor-pointer hover:text-gray-300 transition"
+              className="absolute top-4 right-4 text-gray-600 text-xl cursor-pointer hover:text-gray-800 transition"
             />
             <h2 className="text-2xl font-bold mb-4 text-center">收益计算器</h2>
-            <p className="text-sm text-yellow-300 mb-4 text-center">
+            <p className="text-sm text-blue-600 mb-4 text-center">
               * 收益估算仅供参考，实际收益可能存在偏差
             </p>
             <div className="space-y-4">
-              <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
+              <div className="flex items-center gap-3 bg-white/30 rounded-lg p-3">
                 <span className="text-lg font-semibold">币种</span>
-                <div className="bg-white/20 text-white rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                <div className="bg-white/50 text-gray-800 rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
                   BTC (FPPS)
                 </div>
               </div>
-              <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
+              <div className="flex items-center gap-3 bg-white/30 rounded-lg p-3">
                 <span className="text-lg font-semibold">币价</span>
                 <input
                   type="number"
                   value={btcPrice}
                   onChange={(e) => setBtcPrice(parseFloat(e.target.value))}
-                  className="bg-white/20 text-white rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                  className="bg-white/50 text-gray-800 rounded-lg p-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   min="0"
                 />
                 <span className="text-lg">￥</span>
               </div>
-              <div className="flex items-center gap-3 bg-white/10 rounded-lg p-3">
+              <div className="flex items-center gap-3 bg-white/30 rounded-lg p-3">
                 <span className="text-lg font-semibold">算力</span>
                 <input
                   type="number"
                   value={hashRate}
                   onChange={(e) => setHashRate(parseFloat(e.target.value))}
-                  className="bg-white/20 text-white rounded-lg p-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                  className="bg-white/50 text-gray-800 rounded-lg p-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   min="0"
                 />
-                <div className="bg-white/20 text-white rounded-lg p-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                <div className="bg-white/50 text-gray-800 rounded-lg p-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-400">
                   PH/s
                 </div>
               </div>
-              <div className="space-y-3 bg-white/10 rounded-lg p-4">
+              <div className="space-y-3 bg-white/30 rounded-lg p-4">
                 <h3 className="text-lg font-semibold text-center">收益估算</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
+                  <div className="flex flex-col justify-between bg-white/50 rounded-lg p-2">
                     <span>{dailyEarnings.toFixed(10)} BTC</span>
                     <span>1 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
+                  <div className="bg-white/50 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {dailyRmb.toFixed(2)}</span>
                   </div>
-                  <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
+                  <div className="flex flex-col justify-between bg-white/50 rounded-lg p-2">
                     <span>{weeklyEarnings.toFixed(10)} BTC</span>
                     <span>7 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
+                  <div className="bg-white/50 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {weeklyRmb.toFixed(2)}</span>
                   </div>
-                  <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
+                  <div className="flex flex-col justify-between bg-white/50 rounded-lg p-2">
                     <span>{monthlyEarnings.toFixed(10)} BTC</span>
                     <span>30 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
+                  <div className="bg-white/50 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {monthlyRmb.toFixed(2)}</span>
                   </div>
-                  <div className="flex flex-col justify-between bg-white/20 rounded-lg p-2">
+                  <div className="flex flex-col justify-between bg-white/50 rounded-lg p-2">
                     <span>{yearlyEarnings.toFixed(10)} BTC</span>
                     <span>365 天</span>
                   </div>
-                  <div className="bg-white/20 rounded-lg flex justify-center items-center p-2 text-center">
+                  <div className="bg-white/50 rounded-lg flex justify-center items-center p-2 text-center">
                     <span>≈ ¥ {yearlyRmb.toFixed(2)}</span>
                   </div>
                 </div>
